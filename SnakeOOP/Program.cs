@@ -6,40 +6,34 @@ namespace SnakeOOP
     {
         static void Main(string[] args)
         {
-            Figure HorlineUp = new HorizontallLine(0, 90, 0, '-');
-            Figure VerLineLeft = new VerticalLine(0, 25, 0, '|');
-            Figure HorlineDown = new HorizontallLine(0, 90, 25, '-');
-            Figure VerLineRigth = new VerticalLine(0, 25, 90, '|');
+            Console.SetWindowSize(80, 35);
+            int count=0;
 
-
-            Console.SetWindowSize(100, 35);
+            Walls walls = new Walls(80,25);
+            walls.Drow();
 
             Point p = new Point(4, 5, '*');
             Figure snake = new Snake(p, 4, Direction.RIGHT);
             snake.Drow();
-            List<Figure> figures = new List<Figure>();
-            figures.Add(HorlineUp);
-            figures.Add(VerLineLeft);
-            figures.Add(HorlineDown);
-            figures.Add(VerLineRigth);
 
-            foreach (Figure f in figures) 
-            { 
-                f.Drow();
-            }
-
-
-
-            FoodCreator foodCreator = new FoodCreator(90, 25, '$');
+            FoodCreator foodCreator = new FoodCreator(80, 25, '$');
             Point food = foodCreator.CreateFood();
             food.Drow();
 
             while (true) 
             {
+                if (walls.IsHit(snake) || snake.IsHitTail()) 
+                {
+                    break;
+                }
+                
+
+
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
                     food.Drow();
+                    ++count;
                 }
                 else 
                 {
@@ -55,6 +49,9 @@ namespace SnakeOOP
 
                 }
             }
+            Console.Clear();
+            Console.WriteLine($"Игра окончена. Ваш счет: {count}");
+            Console.ReadKey();
 
         }
 

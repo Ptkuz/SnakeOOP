@@ -72,6 +72,7 @@ namespace ClassLibrary
             {
                 food.sym = head.sym;
                 pList.Add(food);
+                
                 return true;
 
             }
@@ -79,5 +80,22 @@ namespace ClassLibrary
                 return false;
 
         }
+
+
+
+        public override bool IsHitTail() 
+        {
+            var head = pList.Last();
+            for (int i = 0; i<pList.Count-2;i++) 
+            { 
+                if(head.IsHit(pList[i]))
+                    return true;
+            }
+            return false;
+        
+        
+        }
+
+        
     }
 }

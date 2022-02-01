@@ -1,6 +1,6 @@
 ﻿namespace ClassLibrary
 {
-    public class Point
+    public class Point 
     {
          int x;
          int y;
